@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- ترميز الأحرف -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- تعيين عرض العرض ليكون مناسباً لمختلف الشاشات -->
+    <title> my Profile</title> <!-- عنوان الصفحة -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- إضافة Font Awesome -->
+    <style>
+        /* الهواتف الذكية (شاشات صغيرة) */
+        @media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+        padding: 20px;
+    }
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+        margin: 20px auto;
+    }
+    .info {
+        margin: 0;
+        text-align: center;
+    }
+    .navbar a {
+        padding: 10px;
+    }
+    .buttons {
+        margin-top: 20px;
+    }
+}
+
+/* الأجهزة اللوحية (شاشات متوسطة) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        padding: 50px;
+    }
+    .profile-pic {
+        width: 250px;
+        height: 250px;
+        margin: 30px auto;
+    }
+    .info {
+        margin: 0;
+        text-align: center;
+    }
+    .navbar a {
+        padding: 12px;
+    }
+    .buttons {
+        margin-top: 40px;
+    }
+}
+
+/* الشاشات الكبيرة (مثل أجهزة الكمبيوتر) */
+@media (min-width: 1025px) {
+    .container {
+        flex-direction: row;
+        padding: 130px 50px 50px;
+    }
+    .profile-pic {
+        width: 350px;
+        height: 350px;
+        margin-left: 200px;
+        margin-right: 30px;
+    }
+    .info {
+        margin-right: 20px;
+        text-align: left;
+    }
+    .navbar a {
+        padding: 15px 20px;
+    }
+    .buttons {
+        margin-top: 70px;
+    }
+}
+  body {
+    /* المساحة تحت الـ navbar */
+
+    padding-top: 50px; /* تأكد من أن المسافة تتناسب مع ارتفاع الـ navbar */
+
+    font-family: Arial, sans-serif; /* نوع الخط */
+    background-color: #fff; /* لون الخلفية */
+    color: #333; /* لون النص */
+    margin: 0; /* إزالة الهوامش */
+    padding: 0; /* إزالة الحشو */
+    display: flex; /* استخدام Flexbox لتصميم العناصر */
+    flex-direction: column; /* تنظيم العناصر عمودياً */
+    align-items: center; /* محاذاة العناصر في المنتصف */
+    transition: background-color 0.3s ease, color 0.3s ease; /* تأثير الانتقال عند تغيير اللون */
+}
+
+
+.navbar {
+    position: fixed;
+    background-color: #333; /* لون خلفية شريط التنقل */
+    width: 100%; /* عرض شريط التنقل */
+    overflow: hidden; /* إخفاء العناصر الزائدة */
+    top: 0; /* تثبيت الـ navbar في الأعلى */
+    z-index: 1000; /* جعله فوق باقي العناصر */
+}
+
+.navbar a {
+    float: left; /* محاذاة الروابط لليسار */
+    display: block; /* عرض الروابط كعناصر كتلة */
+    color: #f2f2f2; /* لون النص في الروابط */
+    text-align: center; /* محاذاة النص في الوسط */
+    padding: 15px 20px; /* الحشو داخل الروابط */
+  
+}
+
+.navbar a:hover {
+    background-color: #ddd; /* تغيير لون الخلفية عند المرور بالفأرة */
+    color: black; /* تغيير لون النص عند المرور بالفأرة */
+    text-decoration: none; /* إزالة التسطير */
+}
+
+.theme-toggle {
+    float: right; /* محاذاة رمز التبديل لليمين */
+    padding: 14px 20px; /* الحشو حول رمز التبديل */
+    cursor: pointer; /* تغيير شكل المؤشر عند التمرير فوق رمز التبديل */
+}
+
+.theme-toggle img {
+    width: 50px; /* عرض رمز التبديل */
+    height: 50px; /* ارتفاع رمز التبديل */
+    transition: filter 0.3s ease; /* تأثير الانتقال عند تغيير اللون */
+}
+
+.theme-toggle img.moon {
+    filter: drop-shadow(0 0 2px #fff) brightness(1.2); /* تأثير الظل على رمز القمر */
+}
+
+.theme-toggle img.sun {
+    filter: drop-shadow(0 0 2px #ff0) brightness(1.5); /* تأثير الظل على رمز الشمس */
+}
+
+.container {
+    display: flex; /* استخدام Flexbox لتصميم العناصر */
+    align-items: center; /* محاذاة العناصر في المنتصف */
+    justify-content: center; /* توزيع العناصر بشكل متساوي */
+    padding: 130px 50px 50px; /* الحشو داخل الحاوية */
+    width: 100%; /* عرض الحاوية */
+    max-width: 1200px; /* الحد الأقصى لعرض الحاوية */
+}
+
+.profile-pic {
+    border-radius: 50%; /* جعل الصورة دائرية */
+    width: 370px; /* عرض الصورة */
+    height: 370px; /* ارتفاع الصورة */
+    margin-left: 200px; /* الهوامش حول الصورة من اليسار */
+    margin-right: 30px; /* الهوامش حول الصورة من اليمين */
+    order: 2; /* ترتيب الصورة بعد المعلومات */
+}
+
+.info {
+    text-align: left; /* محاذاة النص لليسار */
+    margin-right: 20px; /* الهامش على اليمين */
+    order: 1; /* ترتيب المعلومات قبل الصورة */
+}
+
+.info h1 {
+    font-size: 2.5em; /* حجم خط العنوان */
+    margin: 0; /* إزالة الهوامش */
+}
+
+.info h1 .name {
+    color: #007bff; /* لون اسم المستخدم */
+}
+
+.info h1 .greeting {
+    color: #000; /* لون التحية */
+    transition: color 0.3s ease; /* تأثير الانتقال عند تغيير اللون */
+}
+
+.info h2 {
+    font-size: 1.8em; /* حجم خط العنوان الفرعي */
+    color: #ef1313; /* لون النص */
+}
+
+.info p {
+    font-size: 1.2em; /* حجم النص */
+    color: #000000; /* لون النص */
+}
+
+.buttons {
+    margin-top: 70px; /* الهامش من الأعلى */
+    text-align: center; /* لجعل الأزرار في المنتصف (اختياري) */
+}
+
+.buttons a {
+    display: inline-block; /* لجعل الأزرار بجانب بعضها البعض */
+    text-decoration: none; /* إزالة التسطير */
+    color: white; /* لون النص */
+    background-color: #333; /* لون خلفية الأزرار */
+    padding: 5px 20px; /* تقليل الحشو لتصغير حجم الأزرار */
+    border-radius: 10px; /* تحديد زوايا الأزرار */
+    margin: 10px; /* الهوامش حول الأزرار */
+    font-size:20px;
+}
+
+.buttons a:hover {
+    background-color: #555; /* تغيير لون الخلفية عند المرور بالفأرة */
+    color: #ff0000; /* تغيير لون النص عند المرور بالفأرة */
+    text-decoration: none; /* إزالة التسطير */
+}
+
+.dark-theme {
+    background-color: #333; /* لون الخلفية في الوضع الداكن */
+    color: #fff; /* لون النص في الوضع الداكن */
+}
+
+.dark-theme .navbar {
+    background-color: #555; /* لون خلفية شريط التنقل في الوضع الداكن */
+}
+
+.dark-theme .navbar a {
+    color: #ddd; /* لون النص في الروابط في الوضع الداكن */
+}
+
+.dark-theme .navbar a:hover {
+    background-color: #777; /* تغيير لون الخلفية عند المرور بالفأرة في الوضع الداكن */
+    color: #fff; /* تغيير لون النص عند المرور بالفأرة في الوضع الداكن */
+}
+
+.dark-theme .buttons a {
+    background-color: #ffffff; /* لون خلفية الأزرار في الوضع الداكن */
+    color: #004cff; /* لون النص في الأزرار في الوضع الداكن */
+}
+
+.dark-theme .info p {
+    color: #f20707; /* لون النص في الفقرات في الوضع الداكن */
+}
+
+.dark-theme .info h2 {
+    color: #ffffff; /* لون النص في العناوين الفرعية في الوضع الداكن */
+}
+
+.dark-theme .buttons a:hover {
+    background-color: #777; /* تغيير لون الخلفية عند المرور بالفأرة في الوضع الداكن */
+}
+
+.dark-theme .info h1 .greeting {
+    color: #fff; /* لون التحية في الوضع الداكن */
+}
+
+.theme-toggle img.sun {
+    display: none; /* إخفاء رمز الشمس في الوضع الداكن */
+}
+
+.dark-theme .theme-toggle img.moon {
+    display: none; /* إخفاء رمز القمر في الوضع الداكن */
+}
+
+.header {
+    text-align: center; /* محاذاة النص في الوسط */
+    margin-top: 80px; /* الهامش من الأعلى */
+}
+
+.header h1 {
+    margin: 0; /* إزالة الهوامش */
+    font-size: 2em; /* حجم الخط */
+}
+
+.header .highlight {
+    color: #007bff; /* لون التمييز */
+    font-size: 1.5em; /* حجم أكبر لكلمة التمييز */
+}
+
+/* بداية قسم التعليم */
+.container-education {
+    display: flex; /* استخدام Flexbox لتصميم العناصر */
+    flex-wrap: wrap; /* التمكن من لف العناصر عند الحاجة */
+    gap: 30px; /* المسافة بين البطاقات */
+    width: 80%; /* عرض الحاوية */
+    max-width: 1200px; /* الحد الأقصى لعرض الحاوية */
+    margin-top: 80px; /* الهامش من الأعلى */
+    padding: 5px; /* إضافة حشوة حول البطاقات */
+    box-sizing: border-box; /* التأكد من أن الحشوة لا تؤثر على العرض */
+}
+
+.card {
+    background-color: #f4f4f4; /* لون الخلفية للبطاقات */
+    border: 2px solid #ffcc00; /* لون حد البطاقة */
+    padding: 20px; /* الحشو داخل البطاقة */
+    border-radius: 10px; /* تحديد زوايا البطاقة */
+    text-align: center; /* محاذاة النص في الوسط */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* تأثير الظل */
+    flex: 1; /* جعل البطاقات تتساوى في العرض */
+    min-width: 200px; /* الحد الأدنى لعرض البطاقة */
+    height: 400px; /* ارتفاع البطاقة */
+    position: relative; /* تعيين موضع نسبي */
+    transition: background-color 0.3s, box-shadow 0.3s; /* تأثير الانتقال عند تغيير اللون والظل */
+    transition: transform 0.3s ease; /* إضافة تأثير التدرج لحركة الكارت */
+}
+
+.card:hover {
+    background-color: #96abf7; /* لون خلفية البطاقة عند المرور بالفأرة */
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5); /* زيادة تأثير الظل عند المرور بالفأرة */
+    transform: translateY(10px); /* تحريك الكارت 10 بكسل إلى الأسفل عند التحويم */
+}
+
+.card i {
+    font-size: 3em; /* حجم الأيقونة */
+    color: #007bff; /* لون الأيقونة */
+    margin-bottom: 10px; /* الهامش أسفل الأيقونة */
+}
+
+.card h2 {
+    margin: 0; /* إزالة الهوامش */
+    font-size: 1.2em; /* حجم خط العنوان الفرعي */
+    color: #333; /* لون النص */
+}
+
+.card p {
+    margin: 5px 0; /* الهوامش حول النص */
+    font-size: 1em; /* حجم الخط */
+    color: #666; /* لون النص */
+}
+
+/* نهاية قسم التعليم */
+
+/* بداية قسم المهارات */
+.skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap:50px;
+            width: 80%;
+            max-width: 1200px;
+            margin-top: 70px;
+            padding: 20px;
+            box-sizing: border-box; /* التأكد من أن الحشوة لا تؤثر على العرض */
+        }
+        .skill {
+            background-color: #f4f4f4; /* لون خلفية الأيقونات */
+            border: 2px solid #ffcc00; /* حد الأيقونات بلون مميز */
+            padding: 20px;
+            border-radius: 42px; /* شكل مستطيل مع زوايا مستديرة */
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* تأثير الظل للأيقونات */
+            transition: background-color 0.3s, box-shadow 0.3s; /* تأثير الانتقال عند التغيير */
+            position: relative;
+            overflow: hidden;
+            text-decoration: none; /* إزالة الخط السفلي من الروابط */
+        }
+        .skill:hover {
+            background-color: #ac8686; /* لون خلفية الأيقونات عند المرور بالفأرة */
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5); /* زيادة تأثير الظل عند المرور بالفأرة */
+            text-decoration: none; /* إزالة الخط السفلي من الروابط */
+            transition: transform 0.3s ease; /* إضافة تأثير التدرج لتكبير الأيقونة */
+            transform: scale(1.2); /* تكبير الأيقونة عند التحويم بنسبة 20% */
+}
+        
+        .skill i {
+            font-size: 3em;
+            color: #007bff; /* لون الأيقونة */
+            margin-bottom: 10px;
+        }
+        .skill h2 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #333; /* لون النص */
+        }
+/* تنسيقل اللغه */
+
+  /* تنسيق حاوية الأعمال */
+.portfolio-container {
+    display: flex; /* استخدام Flexbox */
+    flex-wrap: wrap; /* السماح بلف العناصر في صفوف */
+    gap:50px; /* المسافة بين العناصر */
+    justify-content: space-between; /* توزيع العناصر بشكل متساوي */
+    width: 80%; /* عرض الحاوية */
+    max-width: 1200px; /* الحد الأقصى لعرض الحاوية */
+    margin: 40px auto; /* محاذاة الحاوية في الوسط */
+}
+#m {
+            color: #fff;
+            text-align: center;
+            background-color: #003366;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        h3 {
+            text-align: right;
+            color: rgb(53, 8, 8);
+        }
+
+        .portfolio {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer; /* مؤشر الفأرة يظهر كأنه يشير إلى عنصر قابل للنقر */
+        }
+
+        .portfolio img:hover {
+            transform: scale(1.1);
+        }
+
+        /* تنسيق نافذة العرض المكبر */
+        .modal {
+            display: none; /* لا تظهر النافذة بشكل افتراضي */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            border-radius: 8px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        a {
+            display: block;
+            text-align: right;
+            color: #007BFF;
+            text-decoration: none;
+            margin: 20px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+/* تنسيق القسم الخاص بالتواصل */
+.custom-contact {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-contact h3 {
+        font-size: 24px;
+        color: #0073e6;
+        margin-bottom: 10px;
+    }
+
+    .custom-contact .contact-item {
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+    }
+
+    .custom-contact .contact-item span {
+        margin-right: 200px; /* مسافة بين النص والرابط */
+        color: #555;
+    }
+
+    .custom-contact a {
+        color: #0073e6;
+        text-decoration: none;
+    }
+
+    .custom-contact a:hover {
+        text-decoration: underline;
+    }
+
+    /* تنسيق الأيقونات في قسم وسائل التواصل الاجتماعي */
+    .custom-social-media {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .custom-social-media a {
+        font-size: 24px;
+        color: inherit;
+        text-decoration: none;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .custom-social-media a:hover {
+        transform: scale(1.2);
+        color: #0073e6;
+    }
+    /* language    */
+    
+  
+
+    .lang-container {
+        text-align:left;
+        margin-right: 400px;
+    }
+
+    .lang-language {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+       
+    }
+
+    .lang-language h2 {
+        margin-right: 10px;
+        width: 100px;
+    }
+
+    .lang-progress-bar {
+        width: 500px;
+        height: 12px;
+        background-color: #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .lang-progress {
+        height: 15px;
+        background-color: #4caf50; /* لون الإنجليزي */
+        transition: width 2s; /* تأثير الحركة */
+        width: 60%; /* نسبة الإنجليزي */
+    }
+
+    .lang-progress-arabic {
+        height: 15px;
+        background-color: #2196f3; /* لون العربي */
+        transition: width 2s; /* تأثير الحركة */
+        width: 100%; /* نسبة العربي */
+    }
+
+</style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <div class="navbar">
+        <a href="#home">Home</a> <!-- رابط إلى قسم الصفحة الرئيسية -->
+        <a href="#education">Education</a> <!-- رابط إلى قسم التعليم -->
+        <a href="#skills">Skills</a> <!-- رابط إلى قسم المهارات -->
+        <a href="#My works">My works</a> <!-- رابط إلى قسم عن -->
+        <a href="#connect">connect</a> <!-- رابط إلى قسم عن -->
+        <div class="theme-toggle" onclick="toggleTheme()">
+            <img src="https://img.icons8.com/ios/50/000000/moon-symbol.png" alt="Moon Icon" class="moon">
+            <img src="https://img.icons8.com/ios/50/000000/sun.png" alt="Sun Icon" class="sun">
+        </div>
+    </div>
+
+    <!-- قسم الملف الشخصي -->
+    <div id="home" class="container">
+        <img src="mg/my.jpg" alt="Profile Picture" class="profile-pic"> <!-- صورة الملف الشخصي -->
+        <div class="info">
+            <h1 id="typing-text"><span class="greeting">Hi, I'm </span><span class="name">Ahmed Shaban Hassan</span></h1>
+            <h2>I'm a Front-End Developer</h2> <!-- العنوان الوظيفي -->
+            <p>I am a professional Front-End Developer, specializing in designing and building engaging and interactive user interfaces,<br> with a strong focus on user experience and best practices in web development.</p> <!-- وصف -->
+            <div class="buttons">
+                <a href="#My works">My works</a> <!-- رابط إلى قسم عن -->
+                <a href="#education">My Education</a> <!-- رابط إلى قسم التعليم -->
+                <a href="#skills">My Skills</a> <!-- رابط إلى قسم المهارات -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم التعليم -->
+    <div id="education" class="header">
+        <h1><span class="highlight">My</span> Education</h1> <!-- عنوان قسم التعليم -->
+    </div>
+    <div class="container-education">
+        <div class="card">
+            <i class="fas fa-user-graduate"></i> <!-- أيقونة تخرج -->
+            <h2>BE IT</h2> <!-- الدرجة العلمية -->
+            
+            <h5>  *Graduate of MET University - Faculty of Management Information Systems*</h5> <!-- وصف الدرجة العلمية -->
+            <p>I earned a Bachelor's degree from MET University in Management Information Systems. My studies equipped me with skills in data analysis, database management, system design, and software development. This education has enhanced my analytical abilities and strategic thinking, preparing me to tackle challenges in the digital field.</p> <!-- تفاصيل الدراسة -->
+            <p>2021-2024</p> <!-- تاريخ الدراسة -->
+        </div>
+        <div class="card">
+            <i class="fas fa-user-graduate"></i> <!-- أيقونة تخرج -->
+            <h2>Diploma</h2> <!-- الدبلوم -->
+            <h5>Diploma in Web Development</h5> <!-- وصف الدبلوم -->
+            <p>I hold a diploma in Front-End Development from Mansoura University, where I gained advanced skills in designing and developing interactive interfaces. My studies equipped me with strong abilities in using the latest technologies for web design and application development, preparing me to effectively tackle market challenges..</p> <!-- تفاصيل الدبلوم -->
+            <p>MSBTE, 78% marks, 2020-2024</p> <!-- تاريخ الدبلوم والنتائج -->
+        </div>
+        <div class="card">
+            <i class="fas fa-user-graduate"></i> <!-- أيقونة تخرج -->
+            <h2>The second stage</h2> <!-- الشهادة الثانوية -->
+            <p>I achieved a score of 75% in my high school diploma in 2020. This phase was filled with challenges and accomplishments, as I had a strong passion for academic success. This achievement reflects my dedication and commitment to learning, and I look forward to using this foundation to pursue my future goals.</p> <!-- نتائج الشهادة الثانوية -->
+            
+        </div>
+    </div>
+
+    <!-- قسم المهارات -->
+    <div id="skills" class="header">
+        <h1><span class="highlight">My</span> Skills</h1> <!-- عنوان قسم المهارات -->
+    </div>
+    <div class="skills-container">
+        <a href="https://www.w3schools.com/html/" class="skill" target="_blank">
+            <i class="fab fa-html5"></i> <!-- أيقونة HTML -->
+            <h2>HTML</h2> <!-- اسم المهارة -->
+        </a>
+        <a href="https://www.w3schools.com/css/" class="skill" target="_blank">
+            <i class="fab fa-css3-alt"></i> <!-- أيقونة CSS -->
+            <h2>CSS</h2> <!-- اسم المهارة -->
+        </a>
+        <a href="https://www.w3schools.com/js/" class="skill" target="_blank">
+            <i class="fab fa-js"></i> <!-- أيقونة JavaScript -->
+            <h2>JavaScript</h2> <!-- اسم المهارة -->
+        </a>
+        <a href="https://reactjs.org/" class="skill" target="_blank">
+            <i class="fab fa-react"></i> <!-- أيقونة React -->
+            <h2>React</h2> <!-- اسم المهارة -->
+        </a>
+        <a href="https://www.php.net/manual/en/intro-whatis.php" class="skill" target="_blank">
+            <i class="fab fa-php"></i> <!-- أيقونة PHP -->
+            <h2>PHP</h2> <!-- اسم المهارة -->
+        </a>
+        <a href="https://www.mysql.com/" class="skill" target="_blank">
+            <i class="fas fa-database"></i> <!-- أيقونة MySQL -->
+            <h2>MySQL</h2> <!-- اسم المهارة -->
+        </a>
+        <a href="https://github.com/" class="skill" target="_blank">
+            <i class="fab fa-github"></i> <!-- أيقونة GitHub -->
+            <h2>GitHub</h2> <!-- اسم المهارة -->
+        </a>
+        <a href="https://wordpress.org/" class="skill" target="_blank">
+            <i class="fab fa-wordpress"></i> <!-- أيقونة WordPress -->
+            <h2>WordPress</h2> <!-- اسم المهارة -->
+        </a>
+    </div>
+<br><br><br><br>
+
+<div class="lang-container">
+    <h1>Languages</h1>
+    <div class="lang-language">
+        <h2>English</h2>
+        <div class="lang-progress-bar">
+            <div class="lang-progress"></div>
+        </div>
+    </div>
+    <div class="lang-language">
+        <h2>Arabic</h2>
+        <div class="lang-progress-bar">
+            <div class="lang-progress-arabic"></div>
+        </div>
+    </div>
+</div>
+
+
+    
+   
+<br><br><br><br>
+
+    <!-- قسم العنوان -->
+    <div class="header">
+        <div id="My works" class="header">
+            <h1><span class="highlight">My</span> works</h1> <!-- عنوان قسم المهارات -->
+    </div>
+    <br><br><br><br>
+    <section class="portfolio">
+      
+        <a href="html/ADY2.html"> <!-- رابط للصفحة التي تريد الانتقال إليها -->
+            <img src="mg/ADY2.jpg" alt="وصف الصورة 3"> <!-- صورة العمل 3 -->
+        </a>
+        <a href="html/cafe.html"> <!-- رابط للصفحة التي تريد الانتقال إليها -->
+            <img src="mg/ady1.jpg" alt="وصف الصورة 3"> <!-- صورة العمل 3 -->
+        </a>
+        <a href="html/pizza.html"> <!-- رابط للصفحة التي تريد الانتقال إليها -->
+            <img src="mg/pizz.jpg" alt="وصف الصورة 3"> <!-- صورة العمل 3 -->
+        </a>
+        
+        
+        
+    </section>
+  <!-- قسم الملف الشخصي -->
+  <div class="header">
+    <div id="connect" class="header">
+        <h2><span class="highlight">TO</span> connect</h2> <!-- عنوان قسم المهارات -->
+
+   <!-- قسم التواصل -->
+   <div class="custom-contact">
+    
+    <div class="contact-item">
+        <span>Email:</span>
+        <a href="mailto:a7med_shaban0@gmel.com">a7med_shaban0@gmel.com</a>
+    </div>
+    <div class="contact-item">
+        <span>Phone:</span>
+        <a href="tel:+201062272149">01062272149</a>
+    </div>
+    <div class="contact-item">
+        <span>Address:</span>
+        <p>Gamal Abdel Nasser Street, Mansoura City, Dakahlia Governorate, Egypt</p>
+    </div>
+    
+    <!-- أيقونات وسائل التواصل الاجتماعي -->
+    <div class="custom-social-media">
+        <a href="https://wa.me/201062272149" target="_blank">
+            <i class="fab fa-whatsapp" style="font-size: 24px; color: #25D366;"></i>
+        </a>
+        <a href="https://www.facebook.com/YourProfile" target="_blank">
+            <i class="fab fa-facebook" style="font-size: 24px; color: #4267B2;"></i>
+        </a>
+        <a href="https://www.instagram.com/techt_ales0?igsh=MXNmZ2hrM3U5ejUwNA==" target="_blank">
+            <i class="fab fa-instagram" style="font-size: 24px; color: #C13584;"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/YourProfile" target="_blank">
+            <i class="fab fa-linkedin" style="font-size: 24px; color: #0077B5;"></i>
+        </a>
+    </div>
+</div>
+</div>
+</div>
+
+    <!-- سكربت التبديل بين الوضع الداكن والفاتح -->
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            document.querySelector('.theme-toggle .moon').style.display = 
+                document.body.classList.contains('dark-theme') ? 'none' : 'inline';
+            document.querySelector('.theme-toggle .sun').style.display = 
+                document.body.classList.contains('dark-theme') ? 'inline' : 'none';
+        }
+
+        function typeText(text, element, delay = 100) {
+            let i = 0;
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, delay);
+                }
+            }
+            typing();
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const textElement = document.getElementById("typing-text");
+            const greeting = textElement.querySelector('.greeting').textContent;
+            const name = textElement.querySelector('.name').textContent;
+            textElement.innerHTML = '<span class="greeting"></span><span class="name"></span>';
+            typeText(greeting, textElement.querySelector('.greeting'));
+            setTimeout(() => {
+                typeText(name, textElement.querySelector('.name'));
+            }, greeting.length * 100);
+            
+        });
+      
+        window.onload = function() {
+    let englishWidth = 0;
+    let arabicWidth = 0;
+
+    const englishInterval = setInterval(function() {
+        if (englishWidth < 70) { // نسبة الإنجليزي
+            englishWidth++;
+            document.querySelector('.lang-progress').style.width = englishWidth + '%';
+        } else {
+            clearInterval(englishInterval);
+        }
+    }, 50); // تأخير كل 50 مللي ثانية
+
+    const arabicInterval = setInterval(function() {
+        if (arabicWidth < 100) { // نسبة العربي
+            arabicWidth++;
+            document.querySelector('.lang-progress-arabic').style.width = arabicWidth + '%';
+        } else {
+            clearInterval(arabicInterval);
+        }
+    }, 50); // تأخير كل 50 مللي ثانية
+};
+    </script>
+</body>
+</html>
